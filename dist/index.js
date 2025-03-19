@@ -32,21 +32,21 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 //const http = require('http'); // Common JS
 const http = __importStar(require("http")); // ES Module
+const fs_1 = __importDefault(require("fs"));
 const server = http.createServer((req, res) => {
-    res.writeHead(200, { "content-Type": "application/json" });
-    const data = {
-        products: [
-            { id: 1, title: "First product" },
-            { id: 2, title: "second product" },
-            { id: 3, title: "Third product" },
-            { id: 4, title: "Fourth product" },
-        ]
-    };
-    res.write(JSON.stringify(data));
-    res.end();
+    fs_1.default.readFile("./src/data/products.json", "utf8", (err, data) => {
+        //console.log("ERROR =>", err);
+        res.writeHead(200, { "content-Type": "application/json" });
+        console.log("DATA =>", JSON.parse(data));
+        res.write(data);
+        res.end();
+    });
 });
 const PORT = 5000;
 server.listen(PORT); // ** URL => http://localhost:5000 => Browser => compile => JS
@@ -62,6 +62,6 @@ exports.default = server;
 //   // res.end("<span>from end()</span>")
 // });
 // const PORT = 5000;
-// server.listen(PORT); // ** URL => http://localhost:5000 => Browser => compile => JS
+// server.listen(PORT); // URL => http://localhost:5000 => Browser => compile => JS
 // console.log(`Server running at => http://localhost:${PORT}`);
 // export default server;

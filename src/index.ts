@@ -1,20 +1,16 @@
 //const http = require('http'); // Common JS
 import * as http from "http"; // ES Module
+import fs from "fs";
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { "content-Type": "application/json" });
+  fs.readFile("./src/data/products.json", "utf8", (err, data) => {
+    //console.log("ERROR =>", err);
+    res.writeHead(200, { "content-Type": "application/json" });
+    console.log("DATA =>", JSON.parse(data));
+    res.write(data);
+    res.end();
+  });
 
-const data = {
-  products: [
-    {id: 1, title: "First product"},
-    {id: 2, title: "second product"},
-    {id: 3, title: "Third product"},
-    {id: 4, title: "Fourth product"},
-  ]
-}
-
-  res.write(JSON.stringify(data));
-  res.end();
 });
 
 const PORT = 5000;
@@ -23,7 +19,6 @@ server.listen(PORT); // ** URL => http://localhost:5000 => Browser => compile =>
 console.log(`Server running at => http://localhost:${PORT}`);
 
 export default server;
-
 
 // //const http = require('http'); // Common JS
 // import * as http from "http"; // ES Module
@@ -38,7 +33,7 @@ export default server;
 
 // const PORT = 5000;
 
-// server.listen(PORT); // ** URL => http://localhost:5000 => Browser => compile => JS
+// server.listen(PORT); // URL => http://localhost:5000 => Browser => compile => JS
 // console.log(`Server running at => http://localhost:${PORT}`);
 
 // export default server;
