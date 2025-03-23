@@ -6,7 +6,9 @@ const server = http.createServer((req, res) => {
   // const productsFilePath = path.join(__dirname, "data", "products.json");
   const productsFilePath = path.join(process.cwd(), "src", "data", "products.json");
 
-  const assetsPath = path.join(__dirname, "assets");
+  // const assetsPath = path.join(__dirname, "assets");
+  const assetsPath = path.join(process.cwd(), "src", "assets");
+
 
   if (req.url === "/products") {
     fs.access(productsFilePath, err => {
@@ -107,7 +109,7 @@ const server = http.createServer((req, res) => {
     });
   } else if (req.method === "GET" && req.url?.startsWith("/delete")) {
     const file = decodeURIComponent(req.url.split("?")[1].split("=")[1]);
-    const assetsPath = path.join(__dirname, "assets", file);
+    const assetsPath = path.join(process.cwd(), "src", "assets", file);
 
     // ** TODO: check if the file exists (use fs.access())
     fs.unlink(assetsPath, err => {
