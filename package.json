@@ -3,8 +3,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "tsc -p .",
-    "s": "tsc src/index.ts && node dist/index.js"
+    "build": "tsc -p ."
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
